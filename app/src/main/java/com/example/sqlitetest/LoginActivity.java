@@ -269,5 +269,12 @@ public class LoginActivity extends AppCompatActivity {
         return sb.toString();
     }
 
+    public JSONObject check(HashMap<String, String> params) throws IOException, JSONException {
+
+
+
+        return null;
+    }
+
 
 }
