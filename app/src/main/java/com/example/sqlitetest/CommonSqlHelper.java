@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
+import android.os.Environment;
 
 import org.json.JSONArray;
 
@@ -21,29 +22,27 @@ import java.util.List;
 
 
 public class CommonSqlHelper extends SQLiteOpenHelper {
-    //	private final String DATABASE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/ZYXK_OTM";//SK卡下的目录
-    private              String  DATABASE_PATH = "";
-    public static        String  DATABASE_NAME = "NEW_ZYXK.db";//数据库名
-    private static final int     VERSION       = 2;//版本
-    protected static     Context context;
+
+    private static final String CREATE_BOOK = "create table if not exists LoginInfo("
+            + "USERNAME VARCHAR2(255),"
+            + "USERCODE VARCHAR2(255),"
+            + "USERID VARCHAR2(255),"
+            + "PASSWORD VARCHAR2(255),"
+            + "GENDER VARCHAR2(255),"
+            + "DEPTNAME VARCHAR2(255),"
+            + "DEPTID VARCHAR2(255),"
+            + "IDCARD VARCHAR2(255))";
+
+    public static        String  DATABASE_NAME = "TJ_ZCXT";
+    private              Context context;
 
     //必须有这个构造方法
     public CommonSqlHelper(Context context, String name,
                            CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, version);
+        this.context = context;
     }
 
-    public CommonSqlHelper(Context context) {
-        this(context, VERSION);
-        if (context != null) {
-            this.context = context;
-        }
-        DATABASE_PATH = context.getExternalFilesDir("otm").getPath();
-    }
-
-    public CommonSqlHelper(Context context, int version) {
-        this(context, DATABASE_NAME, null, version);
-    }
 
     public int insert(String table, ContentValues values) {
         SQLiteDatabase db = null;
@@ -305,60 +304,60 @@ public class CommonSqlHelper extends SQLiteOpenHelper {
         return null;
     }
 
-//    public synchronized SQLiteDatabase getWritableDatabase() {
-//        try {
-//            moveDbToSDcard();
-//            String databaseFilename = DATABASE_PATH + "/" + DATABASE_NAME;
-//
-//            SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(
-//                    databaseFilename, null);
-//            return database;
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//        return super.getWritableDatabase();
-//    }
+    //    public synchronized SQLiteDatabase getWritableDatabase() {
+    //        try {
+    //            moveDbToSDcard();
+    //            String databaseFilename = DATABASE_PATH + "/" + DATABASE_NAME;
+    //
+    //            SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(
+    //                    databaseFilename, null);
+    //            return database;
+    //        } catch (Exception e) {
+    //            System.out.println(e.getMessage());
+    //        }
+    //        return super.getWritableDatabase();
+    //    }
 
-//    public void moveDbToSDcard() {
-//        try {
-//            String databaseFilename = DATABASE_PATH + "/" + DATABASE_NAME;
-//            File dir = new File(DATABASE_PATH);
-//            // 判断SD卡下是否存在存放数据库的目录，如果不存在，新建目�??
-//            if (!dir.exists()) {
-//                dir.mkdirs();
-//            } else {
-//            }
-//            try {
-//                // 如果数据库已经在SD卡的目录下存在，那么不需要重新创建，否则创建文件，并拷贝/res/raw下面的数据库文件
-//                if ((new File(databaseFilename)).exists()) {
-//                    return;
-//                } else {
-//                    // /res/raw数据库作为输出流
-//                    // AssetManager ast = this.context.getAssets();
-//                    // InputStream is = ast.open("initdb.db");
-//                    InputStream is = CommonSqlHelper.context.getResources()
-//                            .openRawResource(R.raw.init);
-//                    // 用于存放数据库信息的数据�??
-//                    FileOutputStream fos = new FileOutputStream(
-//                            databaseFilename);
-//                    byte[] buffer = new byte[8192];
-//                    int count = 0;
-//                    // 把数据写入SD卡目录下
-//                    while ((count = is.read(buffer)) > 0) {
-//                        fos.write(buffer, 0, count);
-//                    }
-//                    fos.flush();
-//                    fos.close();
-//                    is.close();
-//                }
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        } catch (Exception e) {
-//        }
-//    }
+    //    public void moveDbToSDcard() {
+    //        try {
+    //            String databaseFilename = DATABASE_PATH + "/" + DATABASE_NAME;
+    //            File dir = new File(DATABASE_PATH);
+    //            // 判断SD卡下是否存在存放数据库的目录，如果不存在，新建目�??
+    //            if (!dir.exists()) {
+    //                dir.mkdirs();
+    //            } else {
+    //            }
+    //            try {
+    //                // 如果数据库已经在SD卡的目录下存在，那么不需要重新创建，否则创建文件，并拷贝/res/raw下面的数据库文件
+    //                if ((new File(databaseFilename)).exists()) {
+    //                    return;
+    //                } else {
+    //                    // /res/raw数据库作为输出流
+    //                    // AssetManager ast = this.context.getAssets();
+    //                    // InputStream is = ast.open("initdb.db");
+    //                    InputStream is = CommonSqlHelper.context.getResources()
+    //                            .openRawResource(R.raw.init);
+    //                    // 用于存放数据库信息的数据�??
+    //                    FileOutputStream fos = new FileOutputStream(
+    //                            databaseFilename);
+    //                    byte[] buffer = new byte[8192];
+    //                    int count = 0;
+    //                    // 把数据写入SD卡目录下
+    //                    while ((count = is.read(buffer)) > 0) {
+    //                        fos.write(buffer, 0, count);
+    //                    }
+    //                    fos.flush();
+    //                    fos.close();
+    //                    is.close();
+    //                }
+    //            } catch (FileNotFoundException e) {
+    //                e.printStackTrace();
+    //            } catch (IOException e) {
+    //                e.printStackTrace();
+    //            }
+    //        } catch (Exception e) {
+    //        }
+    //    }
 
     public void execSQLList(String[] sqls) {
         SQLiteDatabase db = null;
@@ -403,16 +402,29 @@ public class CommonSqlHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // TODO Auto-generated method stub
-        System.out.println("方法被调用了");
+
+        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/TJ_ZCXT";
+        File pathFile = new File(path);
+        File file = new File(path + "/TJ_ZCXT.db");
+        try {
+            if (!pathFile.exists()) {
+                pathFile.mkdirs();
+            }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        db = SQLiteDatabase.openOrCreateDatabase(file, null);
+        db.execSQL(CREATE_BOOK);
+
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO Auto-generated method stub
+
     }
 
-    public static int getVersion() {
-        return VERSION;
-    }
 }
