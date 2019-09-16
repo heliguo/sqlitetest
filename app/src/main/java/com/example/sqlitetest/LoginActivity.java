@@ -37,8 +37,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -257,9 +255,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public JSONObject check(HashMap<String, String> params) throws IOException, JSONException {
-
-
-
         return null;
     }
 
