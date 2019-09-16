@@ -1,6 +1,8 @@
 package com.example.sqlitetest;
 
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -74,6 +76,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 loginActivity();
+                ActivityManager manager = (ActivityManager)getSystemService(Context.ACTIVITY_SERVICE);
+                int heapSize = manager.getMemoryClass();
+                Log.d("123456789", "onClick: "+heapSize);
             }
         });
         String password = SPUtils.getString(LoginActivity.this, Const.SP_SERVER_PASSWORD, null);
