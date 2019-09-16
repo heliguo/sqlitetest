@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                 SPUtils.setBoolean(LoginActivity.this,Const.SP_SERVER_ISCHECKED,saveCheck.isChecked());
             }
 
-            final String password = lock(pasword);
+            final String password = pasword;
             ThreadPoolUtil.execute(new Runnable() {
                 @Override
                 public void run() {
@@ -202,25 +202,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private String lock(String password) {
-        MessageDigest md5 = null;
-        try {
-            md5 = MessageDigest.getInstance("md5");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        byte[] bs = md5.digest(password.getBytes());
-        StringBuffer hexValue = new StringBuffer();
-        for (int i = 0; i < bs.length; i++) {
-            int val = ((int) bs[i]) & 0xff;
-            if (val < 16)
-                hexValue.append("0");
-            hexValue.append(Integer.toHexString(val));
-        }
-        password = hexValue.toString();
 
-        return password;
-    }
 
     @Override
     protected void onPause() {
@@ -230,7 +212,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public JSONObject checkLogin(HashMap<String, String> params) throws IOException, JSONException {
 
-        config = "192.168.27.11:8084";
+        config = "10086";
 
         String downloadurl = "http://" + config + "/android/androidAction!login.action";
         String result;

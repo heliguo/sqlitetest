@@ -33,7 +33,7 @@ public class CommonSqlHelper extends SQLiteOpenHelper {
             + "DEPTID VARCHAR2(255),"
             + "IDCARD VARCHAR2(255))";
 
-    public static        String  DATABASE_NAME = "TJ_ZCXT";
+    public static        String  DATABASE_NAME = "CE_SHI";
     private              Context context;
 
     //必须有这个构造方法

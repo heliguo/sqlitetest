@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         applyPermission();
-        sql = new CommonSqlHelper(MainActivity.this, "TJ_ZCXT", null, 2);
+        sql = new CommonSqlHelper(MainActivity.this, "CS", null, 2);
         sql.getWritableDatabase();
         Button button = findViewById(R.id.create_sql);
         button.setOnClickListener(new View.OnClickListener() {
